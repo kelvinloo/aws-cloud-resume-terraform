@@ -31,7 +31,7 @@ resource "aws_s3_object" "viewCountjs" {
   key    = "javascript.js"
   source = "website/dist/javascript.js"
 }
-/*
+
 
 locals {
   content_types = {
@@ -64,7 +64,7 @@ resource "aws_s3_object" "website_files" {
     aws_cloudfront_distribution.s3_distribution
   ]
 }
-*/
+
 
 resource "aws_s3_bucket_policy" "cdn-cf-policy" {
   bucket = aws_s3_bucket.hosting_bucket.id
