@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "cert_acm" {
-  provider          = aws.acm
+  provider          = "us-east-1"
   domain_name       = var.domain_name
   validation_method = "DNS"
 
@@ -10,14 +10,14 @@ resource "aws_acm_certificate" "cert_acm" {
 
 data "aws_acm_certificate" "cert_acm_data" {
   domain   = var.domain_name
-  provider = aws.acm
+  provider = "us-east-1"
   depends_on = [
     aws_acm_certificate_validation.acm_validate
   ]
 }
 
 resource "aws_acm_certificate_validation" "acm_validate" {
-  provider                = aws.acm
+  provider                = "us-east-1"
   certificate_arn         = aws_acm_certificate.cert_acm.arn
   validation_record_fqdns = [aws_route53_record.r53record.fqdn]
   depends_on = [
