@@ -31,7 +31,7 @@ resource "aws_s3_object" "viewCountjs" {
   key    = "javascript.js"
   source = "javascript.js"
   depends_on = [
-    aws_cloudfront_distribution.s3_distribution
+    local_file.local_js
   ]
 }
 
