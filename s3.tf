@@ -23,13 +23,13 @@ locals {
 
 resource "local_file" "local_js" {
   content = "fetch('${local.api_url}').then(response => response.json()).then((data) => {document.getElementById('views').innerText = 'Views: ' + data})"
-  filename = "website/dist/javascript.js"
+  filename = "javascript.js"
 }
 
 resource "aws_s3_object" "viewCountjs" {
   bucket = var.bucket_name
   key    = "javascript.js"
-  source = "website/dist/javascript.js"
+  source = "javascript.js"
 }
 
 
