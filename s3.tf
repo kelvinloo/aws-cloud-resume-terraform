@@ -30,6 +30,9 @@ resource "aws_s3_object" "viewCountjs" {
   bucket = var.bucket_name
   key    = "javascript.js"
   source = "javascript.js"
+  depends_on = [
+    aws_cloudfront_distribution.s3_distribution
+  ]
 }
 
 
