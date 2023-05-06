@@ -2,12 +2,12 @@ terraform {
   backend "s3" {
   }
 
-  // Default aws region 
-//provider "aws" {
-  //region     = var.aws_region
-  //access_key = var.aws_access_key
-  //secret_key = var.aws_secret_key
-  //profile    = "resumeprofile"
+//Default aws region 
+provider "aws" {
+  region     = var.aws_region
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
+  profile    = "resumeprofile"
 
 }
 
