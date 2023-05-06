@@ -1,4 +1,11 @@
+terraform {
+  backend "s3" {
+    bucket         = "github-oidc-terraform-aws-tfstate"
+    key            = "terraform.tfstate"
+    region         = "ap-southeast-2"
+  }
 
+}
 // Default aws region 
 provider "aws" {
   region     = var.aws_region
