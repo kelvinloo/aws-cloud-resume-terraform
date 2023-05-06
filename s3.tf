@@ -85,6 +85,7 @@ resource "aws_s3_object" "website_files" {
 resource "aws_s3_bucket_policy" "cdn-cf-policy" {
   bucket = aws_s3_bucket.hosting_bucket.id
   policy = data.aws_iam_policy.cdntos3.json
+  depends_on = [ aws_iam_policy.cdntos3 ]
 }
 
 
