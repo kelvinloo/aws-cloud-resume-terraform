@@ -4,6 +4,12 @@ terraform {
      key    = "infra.tfstate"
      bucket = "github-oidc-terraform-aws-tfstateInfo"
   }
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "4.66.1"
+    }
+  }
 }
   // Default aws region 
 //provider "aws" {
