@@ -1,6 +1,5 @@
 terraform {
   backend "s3" {
-    region = var.aws_region
   }
 
   // Default aws region 
@@ -9,6 +8,7 @@ terraform {
   //access_key = var.aws_access_key
   //secret_key = var.aws_secret_key
   //profile    = "resumeprofile"
+
 }
 
 // Additional provider configuration for US East 1 Certificate must be issued here for Cloudfront SSL
