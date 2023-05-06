@@ -1,5 +1,8 @@
 terraform {
   backend "s3" {
+     region = var.aws_region
+     key    = "infra.tfstate"
+     bucket = "github-oidc-terraform-aws-tfstateInfo"
   }
 }
   // Default aws region 
