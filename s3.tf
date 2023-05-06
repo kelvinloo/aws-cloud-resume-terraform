@@ -84,12 +84,9 @@ resource "aws_s3_object" "website_files" {
 */
 resource "aws_s3_bucket_policy" "cdn-cf-policy" {
   bucket = aws_s3_bucket.hosting_bucket.id
-  policy = data.aws_iam_policy.cdntos3.json
-  depends_on = [ aws_iam_policy.cdntos3 ]
+  policy = data.aws_iam_policy_document.cdntos3.json
 }
 
-
-/*
 data "aws_iam_policy_document" "cdntos3" {
   statement {
     principals {
@@ -99,32 +96,4 @@ data "aws_iam_policy_document" "cdntos3" {
     actions   = ["s3:*"]
     resources = ["${aws_s3_bucket.hosting_bucket.arn}/*"]
   }
-}
-*/
-
-resource "aws_iam_policy" "cdntos3" {
-  name        = "cdntos3"
-
-  policy = <<EOT
-{
-    "Version": "2008-10-17",
-    "Id": "PolicyForCloudFrontPrivateContent",
-    "Statement": [
-        {
-            "Sid": "AllowCloudFrontServicePrincipal",
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "cloudfront.amazonaws.com"
-            },
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::web-hosting-bucket-kelvin/*",
-            "Condition": {
-                "StringEquals": {
-                    "AWS:SourceArn": "arn:aws:cloudfront::037195511070:distribution/E1BM7TD9638K3X"
-                }
-            }
-        }
-    ]
-}
-EOT
 }
