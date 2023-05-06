@@ -14,6 +14,13 @@ resource "aws_s3_bucket_public_access_block" "hosting_bucket_acl" {
   restrict_public_buckets = false
 }
 
+# Resource to avoid error "AccessControlListNotSupported: The bucket does not allow ACLs"
+resource "aws_s3_bucket_ownership_controls" "s3_bucket_acl_ownership" {
+  bucket = aws_s3_bucket.hosting_bucket.id
+  rule {
+    object_ownership = "ObjectWriter"
+  }
+}
 
 
 // Generates a javascript file with the view count api url to be used with index.html
@@ -87,9 +94,3 @@ data "aws_iam_policy_document" "cdntos3" {
   }
 }
 
-resource "aws_s3_bucket_ownership_controls" "cf-s3-ownership" {
-  bucket = aws_s3_bucket.hosting_bucket.id
-  rule {
-    object_ownership = "BucketOwnerEnforced"
-  }
-}
