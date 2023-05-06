@@ -1,24 +1,11 @@
-terraform {
-  backend "s3" {
-     region = var.aws_region
-     key    = "infra.tfstate"
-     bucket = "github-oidc-terraform-aws-tfstateInfo"
-  }
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-      version = "4.66.1"
-    }
-  }
-}
-  // Default aws region 
-//provider "aws" {
-  //region     = var.aws_region
-  //access_key = var.aws_access_key
-  //secret_key = var.aws_secret_key
+
+// Default aws region 
+provider "aws" {
+  region     = var.aws_region
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
   //profile    = "resumeprofile"
-
-
+}
 
 // Additional provider configuration for US East 1 Certificate must be issued here for Cloudfront SSL
 //provider "aws" {
