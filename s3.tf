@@ -86,3 +86,10 @@ data "aws_iam_policy_document" "cdntos3" {
     resources = ["${aws_s3_bucket.hosting_bucket.arn}/*"]
   }
 }
+
+resource "aws_s3_bucket_ownership_controls" "cf-s3-ownership" {
+  bucket = aws_s3_bucket.hosting_bucket.id
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
+}
