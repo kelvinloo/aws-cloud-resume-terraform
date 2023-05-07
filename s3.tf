@@ -95,7 +95,7 @@ data "aws_iam_policy_document" "cdntos3" {
     resources = ["${aws_s3_bucket.hosting_bucket.arn}/*"]
     condition {
       test     = "StringNotLike"
-      variable = "AWS:SourceArn:"
+      variable = "AWS:SourceArn"
       values   = [aws_cloudfront_distribution.s3_distribution.arn]
     }
 
