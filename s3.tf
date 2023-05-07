@@ -13,13 +13,13 @@ resource "aws_s3_bucket_ownership_controls" "s3_bucket_acl_ownership" {
   }
 }
 
-// Set S3 bucket to public to allow 
+// Set S3 bucket to block public
 resource "aws_s3_bucket_public_access_block" "hosting_bucket_acl" {
   bucket                  = aws_s3_bucket.hosting_bucket.id
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 /*
@@ -79,19 +79,23 @@ resource "aws_s3_object" "website_files" {
 
 */
 
-resource "aws_s3_bucket_policy" "cdn-cf-policy" {
+resource "aws_s3_bucket_policy" "cf-policy" {
   bucket = aws_s3_bucket.hosting_bucket.id
-  policy = data.aws_iam_policy_document.cdntos3.json
+  policy = data.aws_iam_policy_document.cf-policy.json
 }
 
-data "aws_iam_policy_document" "cdntos3" {
+data "aws_iam_policy_document" "cf-policy" {
   statement {
     principals {
-      type        = "AWS"
-      identifiers = [aws_cloudfront_distribution.s3_distribution.id]
+      type        = "*"
+      identifiers = [aws_cloudfront_origin_access_control.oac.iam_arn]
     }
-    actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.hosting_bucket.arn}/*"]
+
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+    ]
+
+    resources = [ "${aws_s3_bucket.hosting_bucket.arn}/*",]
   }
 }
-
