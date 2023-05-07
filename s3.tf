@@ -77,6 +77,7 @@ resource "aws_s3_object" "website_files" {
   ]
 }
 
+*/
 
 resource "aws_s3_bucket_policy" "cdn-cf-policy" {
   bucket = aws_s3_bucket.hosting_bucket.id
@@ -86,12 +87,11 @@ resource "aws_s3_bucket_policy" "cdn-cf-policy" {
 data "aws_iam_policy_document" "cdntos3" {
   statement {
     principals {
-      type        = "*"
+      type        = "AWS"
       identifiers = [aws_cloudfront_distribution.s3_distribution.id]
     }
-    actions   = ["s3:*"]
+    actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.hosting_bucket.arn}/*"]
   }
 }
 
-*/
