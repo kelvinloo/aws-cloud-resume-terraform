@@ -25,11 +25,6 @@ resource "aws_s3_bucket_public_access_block" "hosting_bucket_acl" {
 /*
 
 
-
-
-
-
-
 // Generates a javascript file with the view count api url to be used with index.html
 locals {
   api_url = "https://${aws_cloudfront_distribution.s3_distribution.domain_name}/prod/count"
