@@ -92,6 +92,12 @@ data "aws_iam_policy_document" "cdntos3" {
     }
     actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.hosting_bucket.arn}/*"]
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceArn:"
+      values   = [aws_cloudfront_distribution.s3_distribution.arn]
+    }
+
   }
 }
 
