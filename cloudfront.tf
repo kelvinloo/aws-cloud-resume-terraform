@@ -10,16 +10,10 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
 
   }
-
- 
-
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = "dist/index.html"
-
   aliases = [var.domain_name]
-
-  
 
   // S3
   default_cache_behavior {
@@ -29,12 +23,10 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
     forwarded_values {
       query_string = false
-
       cookies {
         forward = "none"
       }
     }
-
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
     default_ttl            = 3600
@@ -48,8 +40,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
-  
-
   viewer_certificate {
     acm_certificate_arn      = data.aws_acm_certificate.cert_acm_data.arn
     ssl_support_method       = "sni-only"
@@ -59,7 +49,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
     domain_name = "${aws_api_gateway_rest_api.view_count_api.id}.execute-api.${var.aws_region}.amazonaws.com"
     origin_id = "APIGATEWAY"
-
     custom_origin_config {
       http_port = "80"
       https_port = "443"
@@ -78,15 +67,12 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = local.api_gateway_id
-
     viewer_protocol_policy = "https-only"
     min_ttl                = 0
     default_ttl            = 3600
     max_ttl                = 86400
     cache_policy_id  = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
- 
   }
-
 }
 
 resource "aws_cloudfront_origin_access_control" "oac" {
