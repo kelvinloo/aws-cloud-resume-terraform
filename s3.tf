@@ -13,9 +13,6 @@ resource "aws_s3_bucket_ownership_controls" "s3_bucket_acl_ownership" {
   }
 }
 
-
-/*
-
 // Set S3 bucket to public to allow 
 resource "aws_s3_bucket_public_access_block" "hosting_bucket_acl" {
   bucket                  = aws_s3_bucket.hosting_bucket.id
@@ -24,6 +21,10 @@ resource "aws_s3_bucket_public_access_block" "hosting_bucket_acl" {
   ignore_public_acls      = false
   restrict_public_buckets = false
 }
+
+/*
+
+
 
 
 
@@ -81,7 +82,7 @@ resource "aws_s3_object" "website_files" {
   ]
 }
 
-*/
+
 resource "aws_s3_bucket_policy" "cdn-cf-policy" {
   bucket = aws_s3_bucket.hosting_bucket.id
   policy = data.aws_iam_policy_document.cdntos3.json
@@ -97,3 +98,5 @@ data "aws_iam_policy_document" "cdntos3" {
     resources = ["${aws_s3_bucket.hosting_bucket.arn}/*"]
   }
 }
+
+*/
