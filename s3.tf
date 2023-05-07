@@ -16,10 +16,10 @@ resource "aws_s3_bucket_ownership_controls" "s3_bucket_acl_ownership" {
 // Set S3 bucket to public to allow 
 resource "aws_s3_bucket_public_access_block" "hosting_bucket_acl" {
   bucket                  = aws_s3_bucket.hosting_bucket.id
-  block_public_acls       = true
-  block_public_policy     = true
-  ignore_public_acls      = true
-  restrict_public_buckets = true
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
 }
 
 /*
@@ -90,10 +90,11 @@ data "aws_iam_policy_document" "cdntos3" {
       type        = "*"
       identifiers = [aws_cloudfront_distribution.s3_distribution.arn]
     }
+    effect = "Deny"
     actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.hosting_bucket.arn}/*"]
     condition {
-      test     = "StringEquals"
+      test     = "StringNotLike"
       variable = "AWS:SourceArn:"
       values   = [aws_cloudfront_distribution.s3_distribution.arn]
     }
