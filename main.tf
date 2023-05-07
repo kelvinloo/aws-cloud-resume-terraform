@@ -14,8 +14,6 @@ terraform {
     }
   }
 }
-
-
 # Configuring the AWS Provider in us-east-1 region
 
 provider "aws" {
