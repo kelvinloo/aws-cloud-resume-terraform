@@ -13,7 +13,7 @@ Services used:
 •	GitHub Actions
 
 ## AWS architecture
-![AWS Diagram](AWS-Diagram.jpg)
+![Image](https://github.com/kelvinloo/aws-cloud-resume/blob/f335aacd91e63952597d51dc3bba11b2b7d75ef6/AWS%20Diagram.jpg)
  
 ## HTML/CSS
 Wrote resume into a bootstrap template source by davidtmiller: https://github.com/startbootstrap/startbootstrap-resume
