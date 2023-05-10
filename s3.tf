@@ -22,63 +22,6 @@ resource "aws_s3_bucket_public_access_block" "hosting_bucket_acl" {
   restrict_public_buckets = false
 }
 
-/*
-
-
-// Generates a javascript file with the view count api url to be used with index.html
-locals {
-  api_url = "https://${aws_cloudfront_distribution.s3_distribution.domain_name}/prod/count"
-}
-
-resource "local_file" "local_js" {
-  content = "fetch('${local.api_url}').then(response => response.json()).then((data) => {document.getElementById('views').innerText = 'Views: ' + data})"
-  filename = "javascript.js"
-}
-
-resource "aws_s3_object" "viewCountjs" {
-  bucket = var.bucket_name
-  key    = "javascript.js"
-  source = "javascript.js"
-  depends_on = [
-    local_file.local_js
-  ]
-}
-
-
-locals {
-  content_types = {
-    css  = "text/css"
-    html = "text/html"
-    js   = "application/javascript"
-    json = "application/json"
-    txt  = "text/plain"
-    ico = "image/x-icon"
-    pug = "text/html"
-    scss = "text/css"
-  }
-}
-
-
-// Upload items into S3 bucket from website folder
-
-
-
-resource "aws_s3_object" "website_files" {
-  for_each = fileset("website/", "**")
-
-  bucket      = aws_s3_bucket.hosting_bucket.id
-  key         = each.key
-  source      = "website/${each.key}"
-  source_hash = filemd5("website/${each.key}")
-  content_type = lookup(local.content_types, element(split(".", each.value), length(split(".", each.value)) - 1), "text/plain")
-  content_encoding = "utf-8"
-  depends_on = [
-    aws_cloudfront_distribution.s3_distribution
-  ]
-}
-
-*/
-
 resource "aws_s3_bucket_policy" "cdn-cf-policy" {
   bucket = aws_s3_bucket.hosting_bucket.id
   policy = data.aws_iam_policy_document.cdntos3.json
@@ -90,11 +33,11 @@ data "aws_iam_policy_document" "cdntos3" {
       type        = "*"
       identifiers = [aws_cloudfront_distribution.s3_distribution.arn]
     }
-    effect = "Deny"
+    effect = "Allow"
     actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.hosting_bucket.arn}/*"]
     condition {
-      test     = "StringNotLike"
+      test     = "StringEquals"
       variable = "AWS:SourceArn"
       values   = [aws_cloudfront_distribution.s3_distribution.arn]
     }

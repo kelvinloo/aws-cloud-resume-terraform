@@ -10,10 +10,6 @@ variable "bucket_name" {
   default     = "web-hosting-bucket-kelvin"
 }
 
-//variable "aws_access_key" {}
-
-//variable "aws_secret_key" {}
-
 variable "domain_name" {
   default = "www.kelvinloo.com"
 }
