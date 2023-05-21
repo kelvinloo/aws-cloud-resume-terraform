@@ -2,15 +2,15 @@
 
 Goal: Deploy awebsite with my resume backed by AWS serverless architecture. Implement a CI/CD pipeline using Infrastructure as code so website can be updated remotely over the Internet.
 Services used:
-•	S3
-•	CloudFront
-•	Certificate Manager
-•	DynamoDB
-•	API Gateway
-•	Lambda
-•	Route 53
-•	Terraform
-•	GitHub Actions
+-	S3
+-	CloudFront
+-	Certificate Manager
+-	DynamoDB
+-	API Gateway
+-	Lambda
+-	Route 53
+-	Terraform
+-	GitHub Actions
 
 ## AWS architecture
 ![Image](https://github.com/kelvinloo/aws-cloud-resume/blob/f335aacd91e63952597d51dc3bba11b2b7d75ef6/AWS%20Diagram.jpg)
